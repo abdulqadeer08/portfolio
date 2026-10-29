@@ -1,0 +1,488 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────
+   Design tokens
+   The colour preset is chosen with `site.accent` in
+   src/data/portfolio.ts ("aurora" | "emerald" | "ember" | "gold").
+   Each preset has a dark (signature) and a light edition.
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  --noise-opacity: 0.055;
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --noise-opacity: 0.035;
+  color-scheme: light;
+}
+
+/* Aurora — iridescent violet, lavender, rose and peach on cool black */
+:root,
+html[data-accent="aurora"] {
+  --bg: #07070b;
+  --bg-elevated: #0c0c12;
+  --surface: #111118;
+  --surface-2: #191922;
+  --ink: #f4f2fa;
+  --ink-soft: #cdc9dc;
+  --muted: #8b87a1;
+  --line: rgba(225, 220, 255, 0.08);
+  --line-strong: rgba(225, 220, 255, 0.16);
+  --accent: #b39dff;
+  --accent-bright: #ffb3c7;
+  --accent-deep: #7466ff;
+  --on-accent: #0c0818;
+  --glow: rgba(140, 115, 255, 0.18);
+  --gradient-stops: #7466ff 0%, #b39dff 22%, #ff9ec4 45%, #ffc2a1 62%, #b39dff 82%, #7466ff 100%;
+}
+html[data-accent="aurora"][data-theme="light"] {
+  --bg: #f5f4fa;
+  --bg-elevated: #fbfaff;
+  --surface: #ffffff;
+  --surface-2: #ebe8f5;
+  --ink: #13111c;
+  --ink-soft: #3a3650;
+  --muted: #6b6783;
+  --line: rgba(30, 20, 70, 0.1);
+  --line-strong: rgba(30, 20, 70, 0.2);
+  --accent: #6a4cf0;
+  --accent-bright: #d23f84;
+  --accent-deep: #4936d6;
+  --on-accent: #ffffff;
+  --glow: rgba(106, 76, 240, 0.12);
+  --gradient-stops: #4936d6 0%, #7c3aed 22%, #c0267a 45%, #c2410c 62%, #7c3aed 82%, #4936d6 100%;
+}
+
+/* Emerald — jade and pearl on deep forest black */
+html[data-accent="emerald"] {
+  --bg: #060a08;
+  --bg-elevated: #0a100d;
+  --surface: #0f1713;
+  --surface-2: #16201b;
+  --ink: #eef5f0;
+  --ink-soft: #c4d3ca;
+  --muted: #7f9488;
+  --line: rgba(210, 255, 230, 0.08);
+  --line-strong: rgba(210, 255, 230, 0.16);
+  --accent: #5fe0b0;
+  --accent-bright: #d4f7e6;
+  --accent-deep: #1f9e74;
+  --on-accent: #04130d;
+  --glow: rgba(95, 224, 176, 0.14);
+  --gradient-stops: #1f9e74 0%, #5fe0b0 30%, #d4f7e6 50%, #5fe0b0 70%, #1f9e74 100%;
+}
+html[data-accent="emerald"][data-theme="light"] {
+  --bg: #f2f6f3;
+  --bg-elevated: #f8fbf9;
+  --surface: #ffffff;
+  --surface-2: #e3ece6;
+  --ink: #0e1712;
+  --ink-soft: #304237;
+  --muted: #5f7268;
+  --line: rgba(10, 50, 30, 0.1);
+  --line-strong: rgba(10, 50, 30, 0.2);
+  --accent: #0f7a57;
+  --accent-bright: #128060;
+  --accent-deep: #0a5c41;
+  --on-accent: #ffffff;
+  --glow: rgba(15, 122, 87, 0.12);
+  --gradient-stops: #0a5c41 0%, #0f7a57 30%, #128060 50%, #0f7a57 70%, #0a5c41 100%;
+}
+
+/* Ember — crimson, vermilion and apricot on warm black */
+html[data-accent="ember"] {
+  --bg: #0a0706;
+  --bg-elevated: #100c0a;
+  --surface: #16100e;
+  --surface-2: #1f1714;
+  --ink: #f8efea;
+  --ink-soft: #dacbc3;
+  --muted: #978780;
+  --line: rgba(255, 225, 210, 0.08);
+  --line-strong: rgba(255, 225, 210, 0.16);
+  --accent: #ff7a50;
+  --accent-bright: #ffc59e;
+  --accent-deep: #e0362c;
+  --on-accent: #150806;
+  --glow: rgba(255, 110, 70, 0.16);
+  --gradient-stops: #e0362c 0%, #ff7a50 30%, #ffc59e 50%, #ff7a50 70%, #e0362c 100%;
+}
+html[data-accent="ember"][data-theme="light"] {
+  --bg: #f8f3f0;
+  --bg-elevated: #fcf9f7;
+  --surface: #ffffff;
+  --surface-2: #efe4de;
+  --ink: #1a1210;
+  --ink-soft: #45342e;
+  --muted: #7a6860;
+  --line: rgba(60, 25, 10, 0.1);
+  --line-strong: rgba(60, 25, 10, 0.2);
+  --accent: #c8361f;
+  --accent-bright: #d9531e;
+  --accent-deep: #9c1f14;
+  --on-accent: #ffffff;
+  --glow: rgba(200, 54, 31, 0.12);
+  --gradient-stops: #9c1f14 0%, #c8361f 30%, #d9531e 50%, #c8361f 70%, #9c1f14 100%;
+}
+
+/* Gold — champagne on warm black, with an ivory light edition */
+html[data-accent="gold"] {
+  --bg: #0a0908;
+  --bg-elevated: #100f0d;
+  --surface: #151311;
+  --surface-2: #1c1916;
+  --ink: #f4eee4;
+  --ink-soft: #d2c9bb;
+  --muted: #8e877c;
+  --line: rgba(244, 234, 216, 0.08);
+  --line-strong: rgba(244, 234, 216, 0.16);
+  --accent: #d5b47a;
+  --accent-bright: #f3e0b2;
+  --accent-deep: #94703a;
+  --on-accent: #15110a;
+  --glow: rgba(213, 180, 122, 0.14);
+  --gradient-stops: #94703a 0%, #f3e0b2 28%, #d5b47a 50%, #f3e0b2 72%, #94703a 100%;
+}
+html[data-accent="gold"][data-theme="light"] {
+  --bg: #f4efe6;
+  --bg-elevated: #f9f5ee;
+  --surface: #fffdf8;
+  --surface-2: #ece4d6;
+  --ink: #17140f;
+  --ink-soft: #3d362c;
+  --muted: #776d5f;
+  --line: rgba(45, 33, 15, 0.1);
+  --line-strong: rgba(45, 33, 15, 0.2);
+  --accent: #9e7738;
+  --accent-bright: #c39a55;
+  --accent-deep: #74561f;
+  --on-accent: #fffaf0;
+  --glow: rgba(158, 119, 56, 0.12);
+  --gradient-stops: #74561f 0%, #c39a55 28%, #9e7738 50%, #c39a55 72%, #74561f 100%;
+}
+
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-bright: var(--accent-bright);
+  --color-accent-deep: var(--accent-deep);
+  --color-on-accent: var(--on-accent);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  /* Headings. Swap this for another family to change every heading at once. */
+  --font-display: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ─── Base ─────────────────────────────────────────────────── */
+
+html {
+  background: var(--bg);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--surface-2);
+  border: 3px solid var(--bg);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-deep);
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+.lenis [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+
+/* Theme switch — circular reveal via the View Transitions API */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* ─── Utilities ────────────────────────────────────────────── */
+
+@utility container-luxe {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 3.5rem);
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  line-height: 1;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+@utility text-shine {
+  background-image: linear-gradient(100deg, var(--gradient-stops));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine-sweep 8s linear infinite;
+  /* Extend the painted area so italic overhangs and descenders keep their colour */
+  padding: 0 0.08em 0.24em 0;
+  margin: 0 -0.08em -0.24em 0;
+}
+
+@utility bg-shine {
+  background-image: linear-gradient(120deg, var(--gradient-stops));
+  background-size: 200% auto;
+}
+
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--line-strong);
+}
+
+@utility hairline-grid {
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+@keyframes shine-sweep {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* Film grain overlay */
+.grain {
+  position: fixed;
+  inset: -50%;
+  z-index: 60;
+  pointer-events: none;
+  opacity: var(--noise-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 8s steps(10) infinite;
+}
+
+[data-theme="light"] .grain {
+  filter: invert(1);
+}
+
+@keyframes grain {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-5%, -10%);
+  }
+  30% {
+    transform: translate(3%, -15%);
+  }
+  50% {
+    transform: translate(12%, 9%);
+  }
+  70% {
+    transform: translate(9%, 4%);
+  }
+  90% {
+    transform: translate(-1%, 7%);
+  }
+}
+
+/* Component classes live in a layer so Tailwind utilities can override them */
+@layer components {
+  /* Infinite marquee */
+  .marquee {
+    --gap: 2.5rem;
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+    gap: var(--gap);
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
+  .marquee-track {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-around;
+    gap: var(--gap);
+    min-width: 100%;
+    animation: marquee var(--duration, 40s) linear infinite;
+  }
+  .marquee[data-reverse="true"] .marquee-track {
+    animation-direction: reverse;
+  }
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  /* Spotlight cards follow the pointer */
+  .spotlight {
+    --x: 50%;
+    --y: 50%;
+  }
+  .spotlight::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s var(--ease-luxe);
+    background: radial-gradient(520px circle at var(--x) var(--y), var(--glow), transparent 45%);
+  }
+  .spotlight:hover::before {
+    opacity: 1;
+  }
+
+  /* A beam of accent light travelling around a card's border */
+  .beam::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    padding: 1px;
+    pointer-events: none;
+    background: conic-gradient(
+      from var(--beam-angle),
+      transparent 0deg 250deg,
+      var(--accent-deep) 290deg,
+      var(--accent) 320deg,
+      var(--accent-bright) 345deg,
+      transparent 360deg
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box exclude,
+      linear-gradient(#000 0 0);
+    animation: beam-spin 7s linear infinite;
+  }
+}
+
+@property --beam-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes beam-spin {
+  to {
+    --beam-angle: 360deg;
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.animate-spin-slow {
+  animation: spin-slow 22s linear infinite;
+}
+
+@keyframes float-orb {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(6%, -8%, 0) scale(1.08);
+  }
+  66% {
+    transform: translate3d(-5%, 6%, 0) scale(0.95);
+  }
+}
+.animate-orb {
+  animation: float-orb 18s ease-in-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+.animate-pulse-ring {
+  animation: pulse-ring 2s var(--ease-luxe) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain,
+  .marquee-track,
+  .beam::after,
+  .animate-spin-slow,
+  .animate-orb,
+  .animate-pulse-ring,
+  .text-shine,
+  .bg-shine {
+    animation: none !important;
+  }
+}
